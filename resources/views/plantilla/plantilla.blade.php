@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math League</title>
     <link rel="stylesheet" href="CSS/plantilla.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -39,20 +42,8 @@
     <footer>
         <div class="footer-content">
             <div class="footer-links">
-                <a href="#aprendizaje">Aprendizaje</a>
-                <a href="#juegos">Juegos</a>
-                <a href="#sobre-nosotros">Sobre Nosotros</a>
-                <a href="#perfil">Perfil</a>
-                <a href="#contacto">Contacto</a>
                 <a href="#privacidad">Privacidad</a>
                 <a href="#terminos">Términos</a>
-            </div>
-
-            <div class="footer-social">
-                <div class="social-icon">f</div>
-                <div class="social-icon">t</div>
-                <div class="social-icon">i</div>
-                <div class="social-icon">y</div>
             </div>
 
             <div class="footer-info">
