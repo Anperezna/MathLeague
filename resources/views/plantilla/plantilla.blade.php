@@ -4,46 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'MathLeague')</title>
-    <link rel="stylesheet" href="{{ asset('CSS/plantilla.css') }}">
-    <!-- Puedes agregar Bootstrap o Tailwind si lo usas -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Math League</title>
+    <link rel="stylesheet" href="CSS/plantilla.css">
 </head>
 
-<body class="d-flex flex-column min-vh-100">
-
-    {{-- NAVBAR --}}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">MathLeague</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">Acerca</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">Contacto</a></li>
-                </ul>
+<body>
+    <!-- Navegación -->
+    <nav>
+        <div class="nav-links">
+            <a href="#aprendizaje">Aprendizaje</a>
+            <a href="#juegos">Juegos</a>
+            <div class="logo">
+                <img src="img/logo.png" alt="Math League">
             </div>
+            <a href="#sobre-nosotros">Sobre Nosotros</a>
+            <a href="#perfil">Perfil</a>
         </div>
     </nav>
 
-    {{-- CONTENIDO PRINCIPAL --}}
-    <main class="flex-grow-1 py-4">
-        <div class="container">
+    <!-- Contenido principal -->
+    <main>
+        @if(Request::is('login') || Request::is('register'))
+            <!-- Para login/register, no usar content-box -->
             @yield('content')
-        </div>
+        @else
+            <!-- Para otras páginas, usar content-box -->
+            <div class="content-box">
+                @yield('content')
+            </div>
+        @endif
     </main>
 
-    {{-- FOOTER --}}
-    <footer class="bg-dark text-white text-center py-3 mt-auto">
-        <div class="container">
-            <p class="mb-0">&copy; {{ date('Y') }} MathLeague. Todos los derechos reservados.</p>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#aprendizaje">Aprendizaje</a>
+                <a href="#juegos">Juegos</a>
+                <a href="#sobre-nosotros">Sobre Nosotros</a>
+                <a href="#perfil">Perfil</a>
+                <a href="#contacto">Contacto</a>
+                <a href="#privacidad">Privacidad</a>
+                <a href="#terminos">Términos</a>
+            </div>
+
+            <div class="footer-social">
+                <div class="social-icon">f</div>
+                <div class="social-icon">t</div>
+                <div class="social-icon">i</div>
+                <div class="social-icon">y</div>
+            </div>
+
+            <div class="footer-info">
+                <p>&copy; 2025 Math League. Todos los derechos reservados.</p>
+                <p>Aprende matemáticas de forma divertida e interactiva</p>
+            </div>
         </div>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
