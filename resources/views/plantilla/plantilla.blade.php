@@ -7,8 +7,8 @@
     <title>Math League</title>
     <link rel="stylesheet" href="CSS/plantilla.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -27,7 +27,7 @@
 
     <!-- Contenido principal -->
     <main>
-        @if(Request::is('login') || Request::is('register'))
+        @if (Request::is('login') || Request::is('register'))
             <!-- Para login/register, no usar content-box -->
             @yield('content')
         @else
