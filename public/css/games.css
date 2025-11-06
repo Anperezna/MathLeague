@@ -1,0 +1,41 @@
+
+/* Base */
+*{box-sizing:border-box}
+body{font-family: 'Segoe UI', Roboto, Arial, sans-serif; background:#2f3a2f; color:#fff; margin:0}
+
+/* Header */
+.site-header{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:#26392f}
+.site-header .brand{font-weight:800;color:#ffcf4d;font-size:28px;letter-spacing:2px}
+.main-nav a{color:#cfe9d9;text-decoration:none;margin-right:22px;font-weight:700}
+.main-nav a.active{color:#fff}
+
+/* Stadium */
+.stadium-wrap{padding:30px}
+.stadium{background:linear-gradient(180deg,#7fcf9a 0%, #2d8a5a 35%, #1f6b4d 100%);border-radius:12px;padding:34px;position:relative;overflow:hidden}
+.field{height:420px;background:linear-gradient(180deg,#87d07f,#5bb06a);border-radius:8px;position:relative;box-shadow:inset 0 8px 30px rgba(0,0,0,.25)}
+
+/* Game slots positioned */
+.game-slot{position:absolute}
+.slot-a{left:6%;top:8%}
+.slot-b{left:36%;top:10%}
+.slot-c{left:66%;top:8%}
+
+.game-card{width:180px;height:120px;border-radius:14px;background:rgba(255,255,255,0.06);backdrop-filter: blur(6px);box-shadow:0 8px 24px rgba(0,0,0,.4);position:relative;display:flex;align-items:center;justify-content:center}
+.game-thumb{width:140px;height:80px;border-radius:8px;background:linear-gradient(135deg,#6dd28a,#2b8b6a);}
+
+.lock-large{position:absolute;right:10px;bottom:-18px;background:#ffd36b;padding:10px;border-radius:12px;box-shadow:0 8px 18px rgba(0,0,0,.35);}
+.lock-large svg{width:48px;height:48px;fill:#4b2f06}
+
+/* Responsive */
+@media (max-width:900px){
+	.field{height:360px}
+	.slot-a{left:6%;top:6%}
+	.slot-b{left:50%;top:50%;transform:translate(-50%,-50%)}
+	.slot-c{left:78%;top:6%}
+}
+
+@media (max-width:480px){
+	.site-header{padding:12px}
+	.game-card{width:140px;height:100px}
+	.lock-large svg{width:36px;height:36px}
+}
