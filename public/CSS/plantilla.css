@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
 }
 
 body {
@@ -29,6 +30,7 @@ nav {
     align-items: center;
     width: 100%;
     justify-content: space-around;
+    font-family: "Lilita One", sans-serif;
 }
 
 .nav-links a {
@@ -39,6 +41,7 @@ nav {
     text-transform: uppercase;
     transition: color 0.3s;
     letter-spacing: 1px;
+    font-size: 25px;
 }
 
 .nav-links a:hover {
@@ -86,6 +89,7 @@ footer {
     text-align: center;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.3);
     /* El footer se queda abajo automáticamente por el flex:1 del main */
+    font-family: "Lilita One", sans-serif;
 }
 
 .footer-content {
