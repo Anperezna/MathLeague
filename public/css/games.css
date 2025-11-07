@@ -1,41 +1,327 @@
 
 /* Base */
-*{box-sizing:border-box}
-body{font-family: 'Segoe UI', Roboto, Arial, sans-serif; background:#2f3a2f; color:#fff; margin:0}
-
-/* Header */
-.site-header{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:#26392f}
-.site-header .brand{font-weight:800;color:#ffcf4d;font-size:28px;letter-spacing:2px}
-.main-nav a{color:#cfe9d9;text-decoration:none;margin-right:22px;font-weight:700}
-.main-nav a.active{color:#fff}
-
-/* Stadium */
-.stadium-wrap{padding:30px}
-.stadium{background:linear-gradient(180deg,#7fcf9a 0%, #2d8a5a 35%, #1f6b4d 100%);border-radius:12px;padding:34px;position:relative;overflow:hidden}
-.field{height:420px;background:linear-gradient(180deg,#87d07f,#5bb06a);border-radius:8px;position:relative;box-shadow:inset 0 8px 30px rgba(0,0,0,.25)}
-
-/* Game slots positioned */
-.game-slot{position:absolute}
-.slot-a{left:6%;top:8%}
-.slot-b{left:36%;top:10%}
-.slot-c{left:66%;top:8%}
-
-.game-card{width:180px;height:120px;border-radius:14px;background:rgba(255,255,255,0.06);backdrop-filter: blur(6px);box-shadow:0 8px 24px rgba(0,0,0,.4);position:relative;display:flex;align-items:center;justify-content:center}
-.game-thumb{width:140px;height:80px;border-radius:8px;background:linear-gradient(135deg,#6dd28a,#2b8b6a);}
-
-.lock-large{position:absolute;right:10px;bottom:-18px;background:#ffd36b;padding:10px;border-radius:12px;box-shadow:0 8px 18px rgba(0,0,0,.35);}
-.lock-large svg{width:48px;height:48px;fill:#4b2f06}
-
-/* Responsive */
-@media (max-width:900px){
-	.field{height:360px}
-	.slot-a{left:6%;top:6%}
-	.slot-b{left:50%;top:50%;transform:translate(-50%,-50%)}
-	.slot-c{left:78%;top:6%}
+* {
+    box-sizing: border-box;
 }
 
-@media (max-width:480px){
-	.site-header{padding:12px}
-	.game-card{width:140px;height:100px}
-	.lock-large svg{width:36px;height:36px}
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #1a5f3f 0%, #2d8659 50%, #4a9d6f 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    margin: 0;
+}
+
+/* Navigation */
+nav {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    padding: 18px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-links a {
+    color: #cfe9d9;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+    transition: color 0.3s;
+    padding: 8px 12px;
+}
+
+.nav-links a:hover {
+    color: #fff;
+}
+
+.nav-links .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.nav-links .logo img {
+    height: 60px;
+    width: auto;
+}
+
+/* Header - centered logo with nav on sides (backward compatibility) */
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+}
+
+.site-header .brand {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.site-header .brand .logo {
+    height: 60px;
+    width: auto;
+}
+
+.main-nav {
+    display: flex;
+    gap: 24px;
+}
+
+.main-nav a {
+    color: #cfe9d9;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.main-nav a:hover {
+    color: #fff;
+}
+
+.main-nav a.active {
+    color: #fff;
+}
+
+/* Stadium */
+.stadium-wrap {
+    padding: 30px;
+    min-height: calc(100vh - 100px);
+    background: url('../img/fondo.png') center/cover no-repeat;
+    position: relative;
+    flex: 1;
+}
+
+.stadium {
+    background: rgba(46, 125, 75, 0.15);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    padding: 34px;
+    position: relative;
+    overflow: hidden;
+}
+
+.field {
+    height: 420px;
+    background: rgba(87, 208, 127, 0.3);
+    border-radius: 8px;
+    position: relative;
+    box-shadow: inset 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Game slots positioned */
+.game-slot {
+    position: absolute;
+}
+
+.slot-a {
+    left: 6%;
+    top: 8%;
+}
+
+.slot-b {
+    left: 36%;
+    top: 10%;
+}
+
+.slot-c {
+    left: 66%;
+    top: 8%;
+}
+
+.game-card {
+    width: 180px;
+    height: 120px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-thumb {
+    width: 140px;
+    height: 80px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #6dd28a, #2b8b6a);
+}
+
+.lock-large {
+    position: absolute;
+    right: 10px;
+    bottom: -18px;
+    background: #ffd36b;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+}
+
+.lock-large svg {
+    width: 48px;
+    height: 48px;
+    fill: #4b2f06;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .field {
+        height: 360px;
+    }
+    
+    .slot-a {
+        left: 6%;
+        top: 6%;
+    }
+    
+    .slot-b {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .slot-c {
+        left: 78%;
+        top: 6%;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-header {
+        padding: 12px;
+    }
+    
+    .game-card {
+        width: 140px;
+        height: 100px;
+    }
+    
+    .lock-large svg {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 40px;
+    margin: 30px auto;
+    max-width: 1200px;
+    width: 100%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer */
+footer {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    padding: 30px 40px;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    color: #cfe9d9;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-info {
+    text-align: center;
+    color: #b0d4c1;
+    font-size: 13px;
+}
+
+.footer-info p {
+    margin: 5px 0;
+}
+
+.footer-info p:first-child {
+    font-weight: 700;
+    color: #cfe9d9;
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 12px 20px;
+    }
+    
+    .nav-links {
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .nav-links a {
+        font-size: 12px;
+    }
+    
+    .nav-links .logo img {
+        height: 45px;
+    }
+    
+    footer {
+        padding: 20px;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .content-box {
+        padding: 25px;
+        margin: 20px;
+    }
 }
