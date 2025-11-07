@@ -7,9 +7,10 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: rgba(87, 208, 127, 0.3);
-    backdrop-filter: blur(px);
-    /* Forzar el gradient para evitar que otras hojas lo sobreescriban */
+    background-image: url('../img/fondo.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -18,15 +19,10 @@ body {
 
 /* Navegación */
 nav {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding: 15px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .nav-links {
     display: flex;
@@ -66,10 +62,7 @@ nav {
 main {
     flex: 1;
     padding: 40px 20px;
-    /* Agrega esta línea */
     text-align: center;
-    background-image: url('../img/fondo.png');
-    background-size: cover;
 }
 
 .content-box {
@@ -93,16 +86,10 @@ h1 {
 
 /* Footer */
 footer {
-    background: rgba(255, 255, 255, 0.15) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    color: rgba(0, 0, 0, 0.85);
+    color: white;
     padding: 14px 24px;
     text-align: center;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
     font-family: "Lilita One", sans-serif;
-    background-clip: padding-box;
 }
 
 .footer-content {
@@ -119,7 +106,7 @@ footer {
 }
 
 .footer-links a {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
     font-size: 14px;
     text-transform: uppercase;
