@@ -23,6 +23,14 @@ Route::get('/register', function () {
     return view('login'); // Redirige a la misma vista de login
 })->name('register');
 
+Route::get('/learning', function () {
+    return view('learning');
+})->name('learning');
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
+
 Route::get('/games', function () {
     $juegos = Juegos::orderBy('orden')->get();
     $first = $juegos->first();

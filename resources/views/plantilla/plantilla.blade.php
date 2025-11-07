@@ -15,13 +15,13 @@
     <!-- Navegación -->
     <nav>
         <div class="nav-links">
-            <a href="#aprendizaje">Aprendizaje</a>
-            <a href="#juegos">Juegos</a>
+            <a href="{{ route('learning') }}">Aprendizaje</a>
+            <a href="{{ route('games') }}">Juegos</a>
             <div class="logo">
                 <img src="img/logo.png" alt="Math League">
             </div>
-            <a href="#sobre-nosotros">Sobre Nosotros</a>
-            <a href="#perfil">Perfil</a>
+            <a href="{{ route('about') }}">Sobre Nosotros</a>
+            <a href="{{ route('profile') }}">Perfil</a>
         </div>
     </nav>
 
