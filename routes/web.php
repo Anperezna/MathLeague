@@ -30,3 +30,8 @@ Route::get('/games', function () {
 
     return view('games', compact('juegos', 'unlocked'));
 })->name('games');
+
+// Página simple para /infrx
+Route::get('/infrx', function () {
+    return view('infrx');
+})->name('infrx');
