@@ -7,52 +7,72 @@
 	<link rel="stylesheet" href="{{ asset('css/games.css') }}">
 </head>
 <body>
-	<header class="site-header">
-		<div class="brand">MATH LEAGUE</div>
-		<nav class="main-nav">
-			<a href="#">APRENDIZAJE</a>
-			<a href="#" class="active">JUEGOS</a>
-			<a href="#">SOBRE NOSOTROS</a>
-			<a href="#">PERFIL</a>
-		</nav>
-	</header>
+	<!-- Navegación -->
+	<nav>
+		<div class="nav-links">
+			<a href="#aprendizaje">Aprendizaje</a>
+			<a href="#juegos">Juegos</a>
+			<div class="logo">
+				<img src="{{ asset('img/logo.png') }}" alt="Math League">
+			</div>
+			<a href="#sobre-nosotros">Sobre Nosotros</a>
+			<a href="#perfil">Perfil</a>
+		</div>
+	</nav>
 
-	<main class="stadium-wrap">
-		<div class="stadium">
-			{{-- campo central --}}
-			<div class="field">
-				{{-- Game slots positioned to match mockup --}}
-				<div class="game-slot slot-a">
-					<div class="game-card">
-						<div class="game-thumb">&nbsp;</div>
-						<div class="lock-large" title="Bloqueado">
-							<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm6-7h-1V7a5 5 0 0 0-10 0v3H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zM8 7a4 4 0 0 1 8 0v3H8V7z"/></svg>
+	<!-- Contenido principal -->
+	<main>
+		<div class="stadium-wrap">
+			<div class="stadium">
+				{{-- campo central --}}
+				<div class="field">
+					{{-- Game slots positioned to match mockup --}}
+					<div class="game-slot slot-a">
+						<div class="game-card">
+							<div class="game-thumb">&nbsp;</div>
+							<div class="lock-large" title="Bloqueado">
+								<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm6-7h-1V7a5 5 0 0 0-10 0v3H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zM8 7a4 4 0 0 1 8 0v3H8V7z"/></svg>
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="game-slot slot-b">
-					<div class="game-card">
-						<div class="game-thumb">&nbsp;</div>
-						<div class="lock-large" title="Bloqueado">
-							<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm6-7h-1V7a5 5 0 0 0-10 0v3H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zM8 7a4 4 0 0 1 8 0v3H8V7z"/></svg>
+					<div class="game-slot slot-b">
+						<div class="game-card">
+							<div class="game-thumb">&nbsp;</div>
+							<div class="lock-large" title="Bloqueado">
+								<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm6-7h-1V7a5 5 0 0 0-10 0v3H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zM8 7a4 4 0 0 1 8 0v3H8V7z"/></svg>
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="game-slot slot-c">
-					<div class="game-card">
-						<div class="game-thumb">&nbsp;</div>
-						<div class="lock-large" title="Bloqueado">
-							<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm6-7h-1V7a5 5 0 0 0-10 0v3H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zM8 7a4 4 0 0 1 8 0v3H8V7z"/></svg>
+					<div class="game-slot slot-c">
+						<div class="game-card">
+							<div class="game-thumb">&nbsp;</div>
+							<div class="lock-large" title="Bloqueado">
+								<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm6-7h-1V7a5 5 0 0 0-10 0v3H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zM8 7a4 4 0 0 1 8 0v3H8V7z"/></svg>
+							</div>
 						</div>
 					</div>
-				</div>
 
+				</div>
 			</div>
 		</div>
 	</main>
 
+	<!-- Footer -->
+	<footer>
+		<div class="footer-content">
+			<div class="footer-links">
+				<a href="#privacidad">Privacidad</a>
+				<a href="#terminos">Términos</a>
+			</div>
+
+			<div class="footer-info">
+				<p>&copy; 2025 Math League. Todos los derechos reservados.</p>
+				<p>Aprende matemáticas de forma divertida e interactiva</p>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>
 
