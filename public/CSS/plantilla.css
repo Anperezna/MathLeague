@@ -7,7 +7,9 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(to bottom, #1a5f3f 0%, #2d8659 50%, #4a9d6f 100%);
+    background: rgba(87, 208, 127, 0.3);
+    backdrop-filter: blur(px);
+    /* Forzar el gradient para evitar que otras hojas lo sobreescriban */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -15,15 +17,17 @@ body {
 
 
 /* Navegación */
- nav {
-     /* Forzar fondo transparente. Si un CSS externo está sobrescribiendo, este !important lo forzará. */
+nav {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding: 15px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
 .nav-links {
     display: flex;
     gap: 35px;
@@ -34,7 +38,7 @@ body {
 }
 
 .nav-links a {
-    color: rgba(255, 255, 255, 0.7);
+    color: black;
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
@@ -69,7 +73,11 @@ main {
 }
 
 .content-box {
-    background: rgba(255, 255, 255, 0.95);
+    /* Hacer la caja semitransparente para que se vea el gradient de `body` detrás.
+       Ajusta el alpha (0.06) para más/menos visibilidad. */
+    background: rgba(255, 255, 255, 0.06);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
     max-width: 800px;
     margin: 0 auto;
     padding: 40px;
@@ -84,22 +92,16 @@ h1 {
 }
 
 /* Footer */
- footer {
-     /* Forzar fondo transparente. Usa !important para evitar reglas más específicas externas. */
-     background: transparent !important;
-     background-color: transparent !important;
-    /* Si quieres mantener un ligero desenfoque detrás, descomenta backdrop-filter */
-    /* -webkit-backdrop-filter: blur(6px);
-       backdrop-filter: blur(6px); */
-    /* Borde sutil opcional: descomenta si quieres separar visualmente */
-    /* border-top: 1px solid rgba(255, 255, 255, 0.06); */
-    color: rgba(255, 255, 255, 0.9);
+footer {
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(0, 0, 0, 0.85);
     padding: 14px 24px;
     text-align: center;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.18);
-    /* El footer se queda abajo automáticamente por el flex:1 del main */
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
     font-family: "Lilita One", sans-serif;
-    /* Evita que el fondo se pinte fuera del área en algunos navegadores */
     background-clip: padding-box;
 }
 
