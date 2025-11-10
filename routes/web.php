@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Juegos;
+use App\Http\Controllers\JuegosController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,6 +32,10 @@ Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
 
+Route::get('/mathbus', function () {
+    return view('mathbus');
+})->name('mathbus');
+
 Route::get('/games', function () {
     $juegos = Juegos::orderBy('orden')->get();
     $first = $juegos->first();
@@ -38,3 +43,10 @@ Route::get('/games', function () {
 
     return view('games', compact('juegos', 'unlocked'));
 })->name('games');
+
+Route::prefix('api/game')->group(function () {
+    Route::get('/operation', [JuegosController::class, 'getOperation']);
+    Route::post('/check-answer', [JuegosController::class, 'checkAnswer']);
+    Route::post('/save-score', [JuegosController::class, 'saveScore']);
+    Route::get('/high-scores', [JuegosController::class, 'getHighScores']);
+});
