@@ -44,9 +44,3 @@ Route::get('/games', function () {
     return view('games', compact('juegos', 'unlocked'));
 })->name('games');
 
-Route::prefix('api/game')->group(function () {
-    Route::get('/operation', [JuegosController::class, 'getOperation']);
-    Route::post('/check-answer', [JuegosController::class, 'checkAnswer']);
-    Route::post('/save-score', [JuegosController::class, 'saveScore']);
-    Route::get('/high-scores', [JuegosController::class, 'getHighScores']);
-});
