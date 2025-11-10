@@ -9,6 +9,9 @@ const game = {
     gameLoop: null,
     itemGenerator: null,
     csrfToken: null,
+    // Nuevas propiedades para controles suaves
+    keysPressed: {},
+    busSpeed: 0.8, // Velocidad del bus (ajustable)
 
     // Inicializar token CSRF
     init() {
@@ -25,6 +28,7 @@ const game = {
         this.missed = 0;
         this.busPosition = 50;
         this.fallingItems = [];
+        this.keysPressed = {}; // Resetear teclas
         
         document.getElementById('menuScreen').classList.add('hidden');
         document.getElementById('gameScreen').classList.remove('hidden');
@@ -66,18 +70,43 @@ const game = {
 
     // Configurar controles del teclado
     setupControls() {
+        // Detectar cuando se presiona una tecla
         document.addEventListener('keydown', (e) => {
             if (!this.started || this.over) return;
 
-            if (e.key === 'ArrowLeft') {
-                this.moveBus(-5);
-            } else if (e.key === 'ArrowRight') {
-                this.moveBus(5);
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                e.preventDefault(); // Evitar scroll de la página
+                this.keysPressed[e.key] = true;
+            }
+        });
+
+        // Detectar cuando se suelta una tecla
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                this.keysPressed[e.key] = false;
             }
         });
     },
 
-    // Mover el bus
+    // Actualizar posición del bus basado en teclas presionadas
+    updateBusPosition() {
+        if (this.keysPressed['ArrowLeft']) {
+            this.busPosition -= this.busSpeed;
+        }
+        if (this.keysPressed['ArrowRight']) {
+            this.busPosition += this.busSpeed;
+        }
+
+        // Limitar posición del bus
+        this.busPosition = Math.max(0, Math.min(90, this.busPosition));
+        
+        const bus = document.getElementById('bus');
+        if (bus) {
+            bus.style.left = `${this.busPosition}%`;
+        }
+    },
+
+    // Mover el bus (método antiguo - ya no se usa directamente)
     moveBus(direction) {
         this.busPosition = Math.max(0, Math.min(90, this.busPosition + direction));
         const bus = document.getElementById('bus');
@@ -87,9 +116,10 @@ const game = {
     // Iniciar el loop principal del juego
     startGameLoop() {
         this.gameLoop = setInterval(() => {
+            this.updateBusPosition(); // Actualizar posición del bus continuamente
             this.updateFallingItems();
             this.checkCollisions();
-        }, 50);
+        }, 16); // ~60 FPS (1000ms / 60 ≈ 16ms)
     },
 
     // Detener el loop del juego
@@ -106,9 +136,20 @@ const game = {
 
     // Generar números cayendo
     startItemGenerator() {
+        // Crear 3 items iniciales
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+                this.createFallingItem();
+            }, i * 1000); // Crear cada item con 1 segundo de diferencia
+        }
+        
+        // Continuar generando items cuando sea necesario
         this.itemGenerator = setInterval(() => {
-            this.createFallingItem();
-        }, 2000);
+            // Solo crear un nuevo item si hay menos de 3 en pantalla
+            if (this.fallingItems.length < 3) {
+                this.createFallingItem();
+            }
+        }, 500); // Revisar cada 500ms si necesitamos crear un nuevo item
     },
 
     // Crear un nuevo item cayendo
@@ -136,7 +177,7 @@ const game = {
     // Actualizar posición de items cayendo
     updateFallingItems() {
         this.fallingItems = this.fallingItems.filter(item => {
-            item.top += 2;
+            item.top += 0.5; // Reducido de 2 a 0.5 para caer más lento
             
             if (item.element) {
                 item.element.style.top = `${item.top}%`;
