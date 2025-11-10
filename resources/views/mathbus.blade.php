@@ -12,10 +12,9 @@
 
 <body>
     <div class="game-container">
-        <h1>🚌 Bus Matemático</h1>
-
         <!-- Pantalla de Menú -->
         <div id="menuScreen" class="menu-screen">
+            <h1>🚌 Bus Matemático</h1>
             <p>¡Mueve el bus con las flechas ← → para recoger las respuestas correctas!</p>
             <p>Resuelve las operaciones matemáticas y recoge el número correcto.</p>
             <button class="btn" onclick="game.start()">Iniciar Juego</button>
@@ -28,13 +27,15 @@
 
         <!-- Pantalla de Juego -->
         <div id="gameScreen" class="game-screen hidden">
-            <div class="stats">
-                <div>Puntos: <span class="score" id="score">0</span></div>
-                <div>Fallos: <span class="missed" id="missed">0</span>/3</div>
-            </div>
-
-            <div class="operation-display" id="operationDisplay">
-                Cargando...
+            <div class="game-header">
+                <h1><img src="{{ asset('img/MathBus.png') }}" alt=""></h1>
+                <div class="operation-display" id="operationDisplay">
+                    Cargando...
+                </div>
+                <div class="stats">
+                    <div>Puntos: <span class="score" id="score">0</span></div>
+                    <div>Fallos: <span class="missed" id="missed">0</span>/3</div>
+                </div>
             </div>
 
             <div class="game-area" id="gameArea">
