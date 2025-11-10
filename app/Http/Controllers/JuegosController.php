@@ -95,23 +95,11 @@ class JuegosController extends Controller
             ], 404);
         }
 
-        // Obtener las opciones de la pregunta
-        $opciones = DB::table('opciones')
-            ->where('id_pregunta', $pregunta->id_pregunta)
-            ->first();
-
-        if (!$opciones) {
-            return response()->json([
-                'success' => false,
-                'message' => 'No hay opciones para esta pregunta',
-            ], 404);
-        }
-
-        // Determinar cuál opción es la correcta (las opciones son bit: 1=correcta, 0=incorrecta)
+        // Calcular la respuesta correcta a partir del enunciado
         $respuestaCorrecta = null;
         
-        // El enunciado debe tener el formato "5 + 3" y las opciones son los números
-        // Extraer los números de la operación para generar opciones
+        // El enunciado debe tener el formato "5 + 3"
+        // Extraer los números de la operación para calcular la respuesta
         if (preg_match('/(\d+)\s*([+\-*\/])\s*(\d+)/', $pregunta->enunciado, $matches)) {
             $num1 = (int)$matches[1];
             $num2 = (int)$matches[3];
@@ -173,22 +161,75 @@ class JuegosController extends Controller
     // Guardar puntuación
     public function saveScore(Request $request)
     {
-        $jugador = $request->input('jugador', 'Anónimo');
-        $puntos = $request->input('puntos');
-
-        // Por ahora solo retornamos éxito
-        // Cuando tengas una tabla de puntuaciones, descomenta esto:
-        // DB::table('puntuaciones')->insert([
-        //     'jugador' => $jugador,
-        //     'puntos' => $puntos,
-        //     'created_at' => now(),
-        // ]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Puntuación guardada',
-            'puntos' => $puntos,
-        ]);
+        $puntos = $request->input('puntos', 0);
+        $errores = $request->input('errores', 0);
+        $aciertos = (int)($puntos / 10); // Cada acierto vale 10 puntos
+        $intentos = $aciertos + $errores;
+        
+        // Por ahora usar un usuario por defecto (ID 1)
+        // En producción, esto debería ser el usuario autenticado
+        $id_usuario = 1;
+        
+        // Buscar el juego MathBus
+        $juego = DB::table('juegos')
+            ->where('nombre', 'LIKE', '%MathBus%')
+            ->first();
+            
+        if (!$juego) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Juego no encontrado',
+            ], 404);
+        }
+        
+        try {
+            // Obtener el siguiente ID para sesion
+            $next_sesion_id = DB::table('sesiones')->max('id_sesion');
+            $next_sesion_id = $next_sesion_id ? $next_sesion_id + 1 : 1;
+            
+            // Insertar en tabla sesiones
+            DB::table('sesiones')->insert([
+                'id_sesion' => $next_sesion_id,
+                'date_time' => now(),
+                'sesion_lenght' => 0, // Duración en segundos (puedes calcularlo desde el cliente)
+                'n_attemps' => $intentos,
+                'errores' => $errores,
+                'points_scored' => $puntos,
+                'help_clicks' => 0,
+                'completado' => $errores >= 3 ? 0 : 1, // Completado si terminó antes de 3 errores
+                'id_usuario' => $id_usuario,
+            ]);
+            
+            // Obtener el siguiente ID para juegos_sesion
+            $next_juego_sesion_id = DB::table('juegos_sesion')->max('id_juegos_sesion');
+            $next_juego_sesion_id = $next_juego_sesion_id ? $next_juego_sesion_id + 1 : 1;
+            
+            // Insertar en tabla juegos_sesion
+            DB::table('juegos_sesion')->insert([
+                'id_juegos_sesion' => $next_juego_sesion_id,
+                'numero_nivel' => 1,
+                'level_length' => 0,
+                'completado' => $errores >= 3 ? 0 : 1,
+                'errores_nivel' => $errores,
+                'intentos_nivel' => $intentos,
+                'id_sesion' => $next_sesion_id,
+                'id_juego' => $juego->id_juego,
+                'puntuacion' => $puntos,
+            ]);
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Puntuación y sesión guardadas correctamente',
+                'puntos' => $puntos,
+                'id_sesion' => $next_sesion_id,
+            ]);
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al guardar la sesión: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 
     // Obtener mejores puntuaciones
