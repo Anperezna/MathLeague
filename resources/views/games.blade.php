@@ -31,11 +31,11 @@
 				<div class="field">
 					{{-- Game slots positioned to match mockup --}}
 					<div class="game-slot slot-a">
-						<div class="game-card">
+						<a href="{{ route('mathbus') }}" class="game-card">
 							<div class="game-thumb">
 								<img src="{{ asset('img/MathBus.png') }}" alt="Math Bus">
 							</div>
-						</div>
+						</a>
 					</div>
 
 					<div class="game-slot slot-b">
