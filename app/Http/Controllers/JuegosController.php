@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Juegos;
+use App\Models\Preguntas;
+use App\Models\Sesiones;
+use App\Models\Juegos_Sesion;
+use App\Models\Usuarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -69,9 +73,8 @@ class JuegosController extends Controller
     // Obtener una operación aleatoria
     public function getOperation()
     {
-        // Buscar el juego MathBus por nombre
-        $juego = DB::table('juegos')
-            ->where('nombre', 'LIKE', '%MathBus%')
+        // Buscar el juego MathBus por nombre usando Eloquent
+        $juego = Juegos::where('nombre', 'LIKE', '%MathBus%')
             ->orWhere('nombre', 'LIKE', '%mathbus%')
             ->first();
         
@@ -82,9 +85,8 @@ class JuegosController extends Controller
             ], 404);
         }
 
-        // Obtener una pregunta aleatoria del juego
-        $pregunta = DB::table('preguntas')
-            ->where('id_juego', $juego->id_juego)
+        // Obtener una pregunta aleatoria del juego usando Eloquent
+        $pregunta = Preguntas::where('id_juego', $juego->id_juego)
             ->inRandomOrder()
             ->first();
 
@@ -170,10 +172,8 @@ class JuegosController extends Controller
         // En producción, esto debería ser el usuario autenticado
         $id_usuario = 1;
         
-        // Buscar el juego MathBus
-        $juego = DB::table('juegos')
-            ->where('nombre', 'LIKE', '%MathBus%')
-            ->first();
+        // Buscar el juego MathBus usando Eloquent
+        $juego = Juegos::where('nombre', 'LIKE', '%MathBus%')->first();
             
         if (!$juego) {
             return response()->json([
@@ -183,45 +183,35 @@ class JuegosController extends Controller
         }
         
         try {
-            // Obtener el siguiente ID para sesion
-            $next_sesion_id = DB::table('sesiones')->max('id_sesion');
-            $next_sesion_id = $next_sesion_id ? $next_sesion_id + 1 : 1;
+            // Crear sesión usando Eloquent
+            $sesion = new Sesiones();
+            $sesion->date_time = now();
+            $sesion->sesion_lenght = 0; // Duración en segundos (puedes calcularlo desde el cliente)
+            $sesion->n_attemps = $intentos;
+            $sesion->errores = $errores;
+            $sesion->points_scored = $puntos;
+            $sesion->help_clicks = 0;
+            $sesion->completado = $errores >= 3 ? 0 : 1; // Completado si terminó antes de 3 errores
+            $sesion->id_usuario = $id_usuario;
+            $sesion->save();
             
-            // Insertar en tabla sesiones
-            DB::table('sesiones')->insert([
-                'id_sesion' => $next_sesion_id,
-                'date_time' => now(),
-                'sesion_lenght' => 0, // Duración en segundos (puedes calcularlo desde el cliente)
-                'n_attemps' => $intentos,
-                'errores' => $errores,
-                'points_scored' => $puntos,
-                'help_clicks' => 0,
-                'completado' => $errores >= 3 ? 0 : 1, // Completado si terminó antes de 3 errores
-                'id_usuario' => $id_usuario,
-            ]);
-            
-            // Obtener el siguiente ID para juegos_sesion
-            $next_juego_sesion_id = DB::table('juegos_sesion')->max('id_juegos_sesion');
-            $next_juego_sesion_id = $next_juego_sesion_id ? $next_juego_sesion_id + 1 : 1;
-            
-            // Insertar en tabla juegos_sesion
-            DB::table('juegos_sesion')->insert([
-                'id_juegos_sesion' => $next_juego_sesion_id,
-                'numero_nivel' => 1,
-                'level_length' => 0,
-                'completado' => $errores >= 3 ? 0 : 1,
-                'errores_nivel' => $errores,
-                'intentos_nivel' => $intentos,
-                'id_sesion' => $next_sesion_id,
-                'id_juego' => $juego->id_juego,
-                'puntuacion' => $puntos,
-            ]);
+            // Crear juegos_sesion usando Eloquent
+            $juegoSesion = new Juegos_Sesion();
+            $juegoSesion->numero_nivel = 1;
+            $juegoSesion->level_length = 0;
+            $juegoSesion->completado = $errores >= 3 ? 0 : 1;
+            $juegoSesion->errores_nivel = $errores;
+            $juegoSesion->intentos_nivel = $intentos;
+            $juegoSesion->id_sesion = $sesion->id_sesion;
+            $juegoSesion->id_juego = $juego->id_juego;
+            $juegoSesion->puntuacion = $puntos;
+            $juegoSesion->save();
             
             return response()->json([
                 'success' => true,
                 'message' => 'Puntuación y sesión guardadas correctamente',
                 'puntos' => $puntos,
-                'id_sesion' => $next_sesion_id,
+                'id_sesion' => $sesion->id_sesion,
             ]);
             
         } catch (\Exception $e) {
@@ -230,19 +220,36 @@ class JuegosController extends Controller
                 'message' => 'Error al guardar la sesión: ' . $e->getMessage(),
             ], 500);
         }
-    }
-
-    // Obtener mejores puntuaciones
+    }    // Obtener mejores puntuaciones
     public function getHighScores()
     {
-        // Por ahora retornamos un array vacío
-        // Cuando tengas una tabla de puntuaciones, descomenta esto:
-        // $scores = DB::table('puntuaciones')
-        //     ->orderBy('puntos', 'desc')
-        //     ->limit(10)
-        //     ->get();
-
-        $scores = [];
+        // Obtener las mejores puntuaciones usando Eloquent con relaciones
+        $juego = Juegos::where('nombre', 'LIKE', '%MathBus%')->first();
+        
+        if (!$juego) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Juego no encontrado',
+            ], 404);
+        }
+        
+        // Obtener top 10 sesiones con mayor puntuación
+        $scores = Sesiones::with('usuarios')
+            ->whereHas('juegosSesion', function($query) use ($juego) {
+                $query->where('id_juego', $juego->id_juego);
+            })
+            ->orderBy('points_scored', 'desc')
+            ->limit(10)
+            ->get()
+            ->map(function($sesion) {
+                return [
+                    'id_sesion' => $sesion->id_sesion,
+                    'puntos' => $sesion->points_scored,
+                    'errores' => $sesion->errores,
+                    'usuario' => $sesion->usuarios->username ?? 'Usuario',
+                    'fecha' => $sesion->date_time,
+                ];
+            });
 
         return response()->json([
             'success' => true,

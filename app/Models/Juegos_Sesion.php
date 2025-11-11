@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Juegos_Sesion extends Model
 {
     protected $table = 'juegos_sesion';
-    protected $primaryKey = 'id_juego_sesion';
+    protected $primaryKey = 'id_juegos_sesion';
     public $incrementing = true;
     protected $keyType = 'int';
     public $timestamps = false;
-    protected $fillable = ['id_juego', 'id_sesion', 'level_length', 'numero_nivel', 'completado', 'errores_nivel', 'intentos_nivel', 'puntuacion'];
+    protected $fillable = ['id_juegos_sesion', 'numero_nivel', 'level_length', 'completado', 'errores_nivel', 'intentos_nivel', 'id_sesion', 'id_juego', 'puntuacion'];
     
 
     public function juego(): BelongsTo
