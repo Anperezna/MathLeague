@@ -1,9 +1,30 @@
-@extends('plantilla.previous')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ asset('CSS/mathbus.css') }}">
+    <title>MathBus - Math League</title>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Pantalla de Menú -->
+        <div id="menuScreen" class="menu-screen">
+            <h1><img src="{{ asset('img/MathBus.png') }}" alt="Bus Matemático"></h1>
+            <p>¡Mueve el bus con las flechas ← → para recoger las respuestas correctas!</p>
+            <p>Resuelve las operaciones matemáticas y recoge el número correcto.</p>
+            <button class="btn" onclick="game.start()">Iniciar Juego</button>
+            <div class="instructions">
+                <p>📝 Usa las teclas ← y → para mover el bus</p>
+                <p>🎯 Recoge la respuesta correcta de la operación mostrada</p>
+                <p>❌ El juego termina después de 3 fallos</p>
+                <p>❌ Si dejas caer respuesta correcta, también cuenta como fallo</p>
+            </div>
+        </div>
 
-@section('title', 'MathBus - Math League')
-
-@section('content')
-    <!-- Pantalla de Juego -->
+        <!-- Pantalla de Juego -->
         <div id="gameScreen" class="game-screen hidden">
             <div class="game-header">
                 <h1 class="logo-container">
@@ -42,8 +63,7 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
+    
     <script src="{{ asset('JS/mathbus.js') }}"></script>
-@endsection
+</body>
+</html>
