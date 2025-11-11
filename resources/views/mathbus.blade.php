@@ -1,35 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('plantilla.previous')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>MathBus - Math League</title>
-    <link rel="stylesheet" href="{{ asset('CSS/mathbus.css') }}">
-</head>
+@section('title', 'MathBus - Math League')
 
-<body>
-    <div class="game-container">
-        <!-- Pantalla de Menú -->
-        <div id="menuScreen" class="menu-screen">
-            <h1><img src="{{ asset('img/MathBus.png') }}" alt="Bus Matemático"></h1>
-            <p>¡Mueve el bus con las flechas ← → para recoger las respuestas correctas!</p>
-            <p>Resuelve las operaciones matemáticas y recoge el número correcto.</p>
-            <button class="btn" onclick="game.start()">Iniciar Juego</button>
-            <div class="instructions">
-                <p>📝 Usa las teclas ← y → para mover el bus</p>
-                <p>🎯 Recoge la respuesta correcta de la operación mostrada</p>
-                <p>❌ El juego termina después de 3 fallos</p>
-                <p>❌ Si dejas caer respuesta correcta, también cuenta como fallo</p>
-            </div>
-        </div>
-
-        <!-- Pantalla de Juego -->
+@section('content')
+    <!-- Pantalla de Juego -->
         <div id="gameScreen" class="game-screen hidden">
             <div class="game-header">
-                <h1><img src="{{ asset('img/MathBus.png') }}" alt=""></h1>
+                <h1 class="logo-container">
+                    <img src="{{ asset('img/MathBus.png') }}" alt="">
+                    <a href="{{ route('games') }}" class="boton-volver-link">
+                        <img src="{{ asset('img/back.png') }}" class="boton-volver" alt="Volver">
+                    </a>
+                </h1>
                 <div class="operation-display" id="operationDisplay">
                     Cargando...
                 </div>
@@ -60,7 +42,8 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('JS/mathbus.js') }}"></script>
-</body>
+@endsection
 
-</html>
+@section('scripts')
+    <script src="{{ asset('JS/mathbus.js') }}"></script>
+@endsection

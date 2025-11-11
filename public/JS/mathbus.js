@@ -14,15 +14,21 @@ const game = {
     keysPressed: {},
     busSpeed: 0.8, // Velocidad del bus (ajustable)
 
-    // Inicializar token CSRF
-    init() {
-        const metaToken = document.querySelector('meta[name="csrf-token"]');
-        this.csrfToken = metaToken ? metaToken.getAttribute('content') : '';
-    },
-
     // Iniciar juego
     start() {
-        console.log('Iniciando juego MathBus...');
+        console.log('🎮 Iniciando juego MathBus...');
+        
+        const menuScreen = document.getElementById('menuScreen');
+        const gameScreen = document.getElementById('gameScreen');
+        
+        console.log('menuScreen encontrado:', menuScreen);
+        console.log('gameScreen encontrado:', gameScreen);
+        
+        if (!menuScreen || !gameScreen) {
+            console.error('❌ ERROR: No se encontraron los elementos menuScreen o gameScreen');
+            return;
+        }
+        
         this.started = true;
         this.over = false;
         this.score = 0;
@@ -32,14 +38,18 @@ const game = {
         this.keysPressed = {}; // Resetear teclas
         this.scoreSaved = false; // Resetear bandera de guardado
         
-        document.getElementById('menuScreen').classList.add('hidden');
-        document.getElementById('gameScreen').classList.remove('hidden');
+        menuScreen.classList.add('hidden');
+        gameScreen.classList.remove('hidden');
+        
+        console.log('✅ Pantallas cambiadas - Menu oculto, Game visible');
         
         this.updateScore();
         this.loadOperation();
         this.setupControls();
         this.startGameLoop();
         this.startItemGenerator();
+        
+        console.log('✅ Juego iniciado completamente');
     },
 
     // Reiniciar juego
@@ -383,16 +393,27 @@ const game = {
 
 // Inicializar el juego al cargar la página
 window.addEventListener('DOMContentLoaded', () => {
-    console.log('Inicializando MathBus...');
+    console.log('🚀 Inicializando MathBus...');
+    
+    // Verificar elementos esenciales
+    const menuScreen = document.getElementById('menuScreen');
+    const gameScreen = document.getElementById('gameScreen');
+    const bus = document.getElementById('bus');
+    
+    console.log('Verificando elementos:');
+    console.log('- menuScreen:', menuScreen ? '✅ Encontrado' : '❌ NO encontrado');
+    console.log('- gameScreen:', gameScreen ? '✅ Encontrado' : '❌ NO encontrado');
+    console.log('- bus:', bus ? '✅ Encontrado' : '❌ NO encontrado');
     
     // Inicializar el token CSRF
     game.init();
+    console.log('- CSRF Token:', game.csrfToken ? '✅ Encontrado' : '❌ NO encontrado');
     
     // Posicionar el bus
-    const bus = document.getElementById('bus');
     if (bus) {
         bus.style.left = '50%';
     }
     
-    console.log('MathBus listo para jugar!');
+    console.log('✅ MathBus listo para jugar!');
+    console.log('👉 Haz clic en "Iniciar Juego" para comenzar');
 });
