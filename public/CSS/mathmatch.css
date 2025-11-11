@@ -1,0 +1,231 @@
+/* MathMatch styles - modeled after mathbus.css but specific to MathMatch */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Keep body minimal so global layout from plantilla applies */
+body {
+    font-family: 'Arial', sans-serif;
+    background: #0f172a; /* slightly darker for contrast */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.match-container {
+    background: transparent;
+    border-radius: 0;
+    padding: 20px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+h1 {
+    text-align: left;
+    color: #ffffff;
+    margin: 0;
+    font-size: 2.2em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 0 20px;
+    gap: 20px;
+}
+
+.stats {
+    display: flex;
+    gap: 24px;
+    font-size: 1.05em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.menu-screen,
+.game-screen {
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.menu-screen h1 img {
+    height: 160px;
+    width: auto;
+    display: inline-block;
+}
+
+.btn {
+    background: #10b981; /* green accent for MathMatch */
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    font-size: 1.05em;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.25s;
+}
+
+.btn:hover {
+    background: #059669;
+}
+
+.operation-display {
+    background: #f8fafc;
+    border: 3px solid #06b6d4;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #0f172a;
+    text-align: center;
+    max-width: 480px;
+}
+
+/* Game area uses a MathMatch-specific background */
+.game-area {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(2,6,23,0.6), rgba(4,8,21,0.6)),
+                url('../img/Campo_MathMatch.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    height: calc(100vh - 200px);
+    min-height: 520px;
+    overflow: hidden;
+    flex: 1;
+    border: 2px solid rgba(255,255,255,0.06);
+    margin-top: 18px;
+}
+
+.falling-item {
+    position: absolute;
+    background: url('../img/pelota.png');
+    background-size: cover;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+    width: 68px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #fffbeb;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+.bus {
+    position: absolute;
+    bottom: 16px;
+    will-change: left;
+}
+
+.bus-body {
+    width: 140px;
+    height: 86px;
+    position: relative;
+}
+
+.bus-body img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+}
+
+.road {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: rgba(55,65,81,0.9);
+    border-top: 3px dashed rgba(255,255,255,0.06);
+}
+
+.game-over-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 420px;
+}
+
+.hidden {
+    display: none;
+}
+
+.instructions {
+    margin-top: 14px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    font-size: 0.95em;
+    color: #d1d5db;
+}
+
+.logo-container img:hover {
+    transform: scale(1.04);
+    transition: transform 0.25s ease;
+}
+
+.boton-volver-link {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+    transition: all 0.25s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boton-volver {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.logo-container:hover .boton-volver-link {
+    opacity: 0.85;
+}
+
+.logo-container:hover > img {
+    opacity: 0.5;
+    transition: opacity 0.25s ease;
+}
