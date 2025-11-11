@@ -36,6 +36,10 @@ Route::get('/mathbus', function () {
     return view('mathbus');
 })->name('mathbus');
 
+Route::get('/mathmatch', function () {
+    return view('mathmatch');
+})->name('mathmatch');
+
 // Rutas API para el juego MathBus
 Route::prefix('api/game')->group(function () {
     Route::get('/operation', [JuegosController::class, 'getOperation']);
