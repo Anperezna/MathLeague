@@ -36,6 +36,11 @@ h1 {
     flex-shrink: 0;
 }
 
+h1.logo-container {
+    position: relative;
+    display: inline-block;
+}
+
 h1 img {
     height: 110px;
     width: auto;
@@ -242,42 +247,36 @@ div > h1 > img:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
+    width: 110px;
+    height: 110px;
     opacity: 0;
     transition: all 0.3s ease;
-    z-index: 100;
-    display: block;
-    pointer-events: none;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .boton-volver {
-    width: 100%;
-    height: 100%;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
     cursor: pointer;
 }
 
-/* Mostrar el botón cuando pases el mouse por encima del bus */
-.bus-body:hover .boton-volver-link {
-    opacity: 0.7;
-    pointer-events: auto;
+/* Mostrar el botón cuando pases el mouse por encima del logo */
+.logo-container:hover .boton-volver-link {
+    opacity: 0.8;
 }
 
 /* Al hacer hover sobre el botón mismo, ponerlo más visible */
 .boton-volver-link:hover {
     opacity: 1 !important;
-    transform: translate(-50%, -50%) scale(1.2);
-    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1.15);
 }
 
-/* Mostrar el botón cuando pases el mouse por encima del área de juego */
-#gameArea:hover .boton-volver-link {
-    opacity: 0.7;
-}
-
-/* Al hacer hover sobre el botón mismo, ponerlo más visible */
-.boton-volver-link:hover {
-    opacity: 1 !important;
-    transform: translate(-50%, -50%) scale(1.2);
+/* Opacar el logo del bus cuando pasas sobre el botón de back */
+.logo-container:hover > img {
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
 }

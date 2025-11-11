@@ -6,7 +6,12 @@
     <!-- Pantalla de Juego -->
         <div id="gameScreen" class="game-screen hidden">
             <div class="game-header">
-                <h1><img src="{{ asset('img/MathBus.png') }}" alt=""></h1>
+                <h1 class="logo-container">
+                    <img src="{{ asset('img/MathBus.png') }}" alt="">
+                    <a href="{{ route('games') }}" class="boton-volver-link">
+                        <img src="{{ asset('img/back.png') }}" class="boton-volver" alt="Volver">
+                    </a>
+                </h1>
                 <div class="operation-display" id="operationDisplay">
                     Cargando...
                 </div>
@@ -20,9 +25,6 @@
                 <div class="bus" id="bus">
                     <div class="bus-body">
                         <img src="{{ asset('img/mathbus_game.png') }}" alt="Bus">
-                        <a href="{{ route('games') }}" class="boton-volver-link">
-                            <img src="{{ asset('img/back.png') }}" class="boton-volver" alt="Volver">
-                        </a>
                     </div>
                 </div>
                 <div class="road"></div>
