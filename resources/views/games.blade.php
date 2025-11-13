@@ -1,34 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Juegos - Math League</title>
-	<link rel="stylesheet" href="{{ asset('CSS/games.css') }}">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
-</head>
-<body>
-	<!-- Navegación -->
-	<nav>
-		<div class="nav-links">
-			<a href="#aprendizaje">Aprendizaje</a>
-			<a href="#juegos">Juegos</a>
-			<div class="logo">
-				<img src="{{ asset('img/logo.png') }}" alt="Math League">
-			</div>
-			<a href="#sobre-nosotros">Sobre Nosotros</a>
-			<a href="#perfil">Perfil</a>
-		</div>
-	</nav>
+@extends('plantilla.plantilla')
 
-	<!-- Contenido principal -->
-	<main>
-		<div class="stadium-wrap">
-			<div class="stadium">
-				{{-- campo central --}}
-				<div class="field">
+@section('content')
+<link rel="stylesheet" href="{{ asset('CSS/games.css') }}">
+
+<div class="stadium-wrap">
+	<div class="stadium">
+		{{-- campo central --}}
+		<div class="field">
 					{{-- Game slots positioned to match mockup --}}
 					<div class="game-slot slot-a">
 						<a href="{{ route('mathbus') }}" class="game-card">
@@ -74,22 +52,5 @@
 				</div>
 			</div>
 		</div>
-	</main>
-
-	<!-- Footer -->
-	<footer>
-		<div class="footer-content">
-			<div class="footer-links">
-				<a href="#privacidad">Privacidad</a>
-				<a href="#terminos">Términos</a>
-			</div>
-
-			<div class="footer-info">
-				<p>&copy; 2025 Math League. Todos los derechos reservados.</p>
-				<p>Aprende matemáticas de forma divertida e interactiva</p>
-			</div>
-		</div>
-	</footer>
-</body>
-</html>
-
+	</div>
+@endsection
