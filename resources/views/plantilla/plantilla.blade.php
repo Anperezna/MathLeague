@@ -28,8 +28,8 @@
 
     <!-- Contenido principal -->
     <main>
-        @if (Request::is('login') || Request::is('register'))
-            <!-- Para login/register, no usar content-box -->
+        @if (Request::is('login') || Request::is('register') || Request::is('/') || Request::is('index'))
+            <!-- Para login/register/index, no usar content-box -->
             @yield('content')
         @else
             <!-- Para otras páginas, usar content-box -->
