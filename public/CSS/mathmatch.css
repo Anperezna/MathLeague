@@ -8,7 +8,7 @@
 /* Keep body minimal so global layout from plantilla applies */
 body {
     font-family: 'Arial', sans-serif;
-    background: #0f172a; /* slightly darker for contrast */
+    background: transparent; /* let the field image show without a dark page background */
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -28,9 +28,9 @@ body {
 }
 
 h1 {
-    text-align: left;
+    text-align: center;
     color: #ffffff;
-    margin: 0;
+    margin: 0 0 18px 0;
     font-size: 2.2em;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
@@ -61,10 +61,23 @@ h1 {
     justify-content: center;
 }
 
+/* only the menu should have a dark backdrop */
+.menu-screen {
+    background: rgba(3,6,18,0.82);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+}
+
 .menu-screen h1 img {
-    height: 160px;
+    height: 220px;
     width: auto;
-    display: inline-block;
+    display: block;
+    margin: 0 auto;
 }
 
 .btn {
@@ -98,11 +111,8 @@ h1 {
 /* Game area uses a MathMatch-specific background */
 .game-area {
     position: relative;
-    background: linear-gradient(to bottom, rgba(2,6,23,0.6), rgba(4,8,21,0.6)),
-                url('../img/Campo_MathMatch.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    /* use the single full-screen field image (do not draw a second smaller one here) */
+    background: transparent;
     border-radius: 8px;
     height: calc(100vh - 200px);
     min-height: 520px;
@@ -110,7 +120,149 @@ h1 {
     flex: 1;
     border: 2px solid rgba(255,255,255,0.06);
     margin-top: 18px;
+    z-index: 2; /* keep interactive elements above the full-field */
 }
+
+/* Full screen field for MathMatch play view */
+.game-screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.full-field {
+    position: absolute;
+    inset: 0;
+    /* full-field shows the plain photo without additional dark overlay */
+    background: url('../img/Campo_MathMatch.png') center/cover no-repeat;
+    background-size: cover;
+    z-index: 1; /* behind interactive elements */
+    pointer-events: none; /* allow clicks to pass to zone buttons */
+}
+
+/* Ball and progress */
+.ball {
+    position: absolute;
+    bottom: 36px; /* just above the road/edge */
+    left: 6%;
+    width: 56px;
+    height: 56px;
+    background: url('../img/pelota.png') center/cover no-repeat;
+    background-size: contain;
+    transition: left 600ms cubic-bezier(.2,.8,.2,1);
+    z-index: 50;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.45);
+}
+
+.game-area { position: relative; }
+
+/* make the factors buttons visually clear */
+#factorsContainer .factor-btn {
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.08);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 56px;
+    text-align: center;
+}
+
+#factorsContainer .factor-btn:hover { transform: scale(1.04); }
+.game-over-modal { display: flex; }
+
+/* zones across the field */
+.zones { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 16.6666%; /* six equal columns */
+    pointer-events: auto; /* enable clicks on buttons inside */
+    display: flex;
+    /* center options vertically and horizontally within their section */
+    align-items: center;
+    justify-content: center;
+}
+.zone .zone-buttons { display:flex; gap:8px; flex-direction:column; flex-wrap:nowrap; justify-content:center; align-items:center; max-height:60%; }
+
+.zone:nth-child(1) { left: 0%; }
+.zone:nth-child(2) { left: 16.6666%; }
+.zone:nth-child(3) { left: 33.3333%; }
+.zone:nth-child(4) { left: 50%; }
+.zone:nth-child(5) { left: 66.6666%; }
+.zone:nth-child(6) { left: 83.3333%; }
+
+/* Zone button style (reuse factor-btn look) */
+.zone .factor-btn {
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.08);
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 52px;
+}
+
+.zone .factor-btn.wrong { animation: shake 300ms; background: rgba(255,99,71,0.12); }
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-4px); }
+ 100% { transform: translateX(0); }
+}
+
+/* Defense card (image with number on the back) */
+.defense {
+    position: relative;
+    width: 120px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transform-origin: center bottom;
+    padding-top: 6px; /* make room for hair/top of image */
+}
+.defense img {
+    /* show the whole player image without cropping the top */
+    width: auto;
+    height: 92%;
+    object-fit: contain;
+    display: block;
+}
+.defense .back-number {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.05em;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.45);
+    pointer-events: none; /* clicks go to the card */
+}
+.defense:hover { transform: translateY(-6px); transition: transform 160ms ease; }
+
+.zone .zone-buttons { gap:14px; }
+
+/* responsive scaling: smaller devices show slightly smaller cards */
+@media (max-width: 800px) {
+    .defense { width: 92px; height: 124px; padding-top:4px; }
+    .defense img { height: 88%; }
+}
+.game-over-modal { display: flex; }
+
+.hidden { display: none; }
 
 .falling-item {
     position: absolute;
