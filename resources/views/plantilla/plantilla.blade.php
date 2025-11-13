@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math League</title>
-    <link rel="stylesheet" href="CSS/plantilla.css">
+    <link rel="stylesheet" href="{{ asset('CSS/plantilla.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
@@ -14,7 +14,17 @@
 <body>
     <!-- Navegación -->
     <nav>
-        <div class="nav-links">
+        <div class="logo-mobile">
+            <img src="img/logo.png" alt="Math League">
+        </div>
+        
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <div class="nav-links" id="navLinks">
             <a href="{{ route('learning') }}">Aprendizaje</a>
             <a href="{{ route('games') }}">Juegos</a>
             <div class="logo">
@@ -24,11 +34,29 @@
             <a href="{{ route('profile') }}">Perfil</a>
         </div>
     </nav>
+    
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
 
     <!-- Contenido principal -->
     <main>
-        @if (Request::is('login') || Request::is('register') || Request::is('games'))
-            <!-- Para login/register/games, no usar content-box -->
+        @if (Request::is('login') || Request::is('register') || Request::is('games') || Request::is('about'))
+            <!-- Para login/register/games/about, no usar content-box -->
             @yield('content')
         @else
             <!-- Para otras páginas, usar content-box -->
