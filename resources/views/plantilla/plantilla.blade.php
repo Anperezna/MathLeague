@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math League</title>
     <link rel="stylesheet" href="CSS/plantilla.css">
+    @stack('styles')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
@@ -27,8 +28,8 @@
 
     <!-- Contenido principal -->
     <main>
-        @if (Request::is('login') || Request::is('register') || Request::is('games'))
-            <!-- Para login/register/games, no usar content-box -->
+        @if (Request::is('login') || Request::is('register') || Request::is('/') || Request::is('index') || Request::is('games'))
+            <!-- Para login/register/index/games, no usar content-box -->
             @yield('content')
         @else
             <!-- Para otras páginas, usar content-box -->
