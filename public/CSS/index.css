@@ -1,0 +1,217 @@
+/* Index page - Simple Storytelling */
+
+.index-container {
+  min-height: 100vh;
+  height: 100vh;
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  padding-top: 15vh;
+}
+
+.story-wrapper {
+  display: flex;
+  gap: 100px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 100px;
+  box-sizing: border-box;
+}
+
+.story-text {
+  flex: 1.5;
+  max-width: none;
+}
+
+.story-text h1 {
+  font-family: "Lilita One", sans-serif;
+  font-size: 4.5rem;
+  font-weight: 400;
+  color: #ee3b1b;
+  margin: 0 0 30px 0;
+  line-height: 1;
+  text-shadow: 
+    3px 3px 0px rgba(0, 0, 0, 0.2),
+    5px 5px 15px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.story-text p {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #fff;
+  margin-bottom: 18px;
+  text-align: justify;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+}
+
+.play-button {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 18px 55px;
+  background: linear-gradient(135deg, #ee3b1b 0%, #ee3b1b 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: "Lilita One", sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 6px 20px rgba(230, 57, 70, 0.4),
+    0 3px 6px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.play-button:hover {
+  background: linear-gradient(135deg, #f4626e 0%, #e63946 100%);
+  transform: translateY(-4px);
+  box-shadow: 
+    0 8px 25px rgba(230, 57, 70, 0.5),
+    0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.logo-container {
+  flex: 0 0 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.logo-container::before {
+  content: '';
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(238, 59, 27, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: glow-pulse 3s ease-in-out infinite;
+  z-index: 0;
+}
+
+.logo {
+  max-width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 1;
+  animation: logo-breathe 4s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05) rotate(5deg);
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes logo-breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .story-wrapper {
+    gap: 60px;
+    padding: 0 60px;
+  }
+
+  .logo-container {
+    flex: 0 0 350px;
+  }
+
+  .story-text h1 {
+    font-size: 3.5rem;
+  }
+
+  .story-text p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .index-container {
+    height: auto;
+    min-height: 100vh;
+    padding-top: 10vh;
+  }
+
+  .story-wrapper {
+    flex-direction: column;
+    gap: 40px;
+    padding: 0 30px 40px;
+  }
+
+  .logo-container {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 280px;
+    order: -1;
+  }
+
+  .story-text {
+    max-width: 100%;
+  }
+
+  .story-text h1 {
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .story-text p {
+    font-size: 1.05rem;
+    text-align: left;
+  }
+
+  .play-button {
+    width: 100%;
+    text-align: center;
+    padding: 16px 40px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .story-wrapper {
+    padding: 0 20px 30px;
+  }
+
+  .story-text h1 {
+    font-size: 2.2rem;
+  }
+
+  .story-text p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .logo-container {
+    max-width: 220px;
+  }
+
+  .play-button {
+    font-size: 1.1rem;
+    padding: 14px 35px;
+  }
+}
