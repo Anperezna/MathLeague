@@ -13,8 +13,8 @@ class Sesiones extends Model
     public $incrementing = true;
     protected $keyType = 'int';
     public $timestamps = false;
-    protected $fillable = ['id_usuario', 'id_juego', 'date_time', 'sesion_length', 'n_attempts', 
-    'errors', 'points_scored', 'help_clicks', 'completedo'];
+    protected $fillable = ['id_sesion', 'date_time', 'sesion_lenght', 'n_attemps', 
+    'errores', 'points_scored', 'help_clicks', 'completado', 'id_usuario'];
 
   
   

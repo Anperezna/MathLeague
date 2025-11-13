@@ -1,120 +1,77 @@
-
 /* Base */
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(to bottom, #1a5f3f 0%, #2d8659 50%, #4a9d6f 100%);
+    background-image: url('../img/fondo.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    color: #fff;
-    margin: 0;
 }
 
-/* Navigation */
+/* Navegación */
 nav {
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(8px);
-    padding: 18px 40px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .nav-links {
     display: flex;
+    gap: 35px;
     align-items: center;
-    justify-content: center;
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    justify-content: space-around;
+    font-family: "Lilita One", sans-serif;
 }
 
 .nav-links a {
-    color: #cfe9d9;
+    color: black;
     text-decoration: none;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: bold;
     text-transform: uppercase;
-    font-size: 14px;
     transition: color 0.3s;
-    padding: 8px 12px;
+    letter-spacing: 1px;
+    font-size: 25px;
 }
 
 .nav-links a:hover {
     color: #fff;
 }
 
-.nav-links .logo {
+.logo {
+    text-align: center;
+}
+
+.logo img {
+    height: 65px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+/* Contenido principal */
+main {
+    flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 20px;
-}
-
-.nav-links .logo img {
-    height: 60px;
-    width: auto;
-}
-
-/* Header - centered logo with nav on sides (backward compatibility) */
-.site-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 40px;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(8px);
-}
-
-.site-header .brand {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.site-header .brand .logo {
-    height: 60px;
-    width: auto;
-}
-
-.main-nav {
-    display: flex;
-    gap: 24px;
-}
-
-.main-nav a {
-    color: #cfe9d9;
-    text-decoration: none;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 14px;
-    transition: color 0.3s;
-}
-
-.main-nav a:hover {
-    color: #fff;
-}
-
-.main-nav a.active {
-    color: #fff;
+    flex-direction: column;
 }
 
 /* Stadium */
 .stadium-wrap {
     padding: 30px;
-    min-height: calc(100vh - 100px);
-    background: url('../img/fondo.png') center/cover no-repeat;
     position: relative;
-    flex: 1;
+    text-align: center;
 }
 
 .stadium {
-    background: rgba(46, 125, 75, 0.15);
-    backdrop-filter: blur(4px);
     border-radius: 12px;
     padding: 34px;
     position: relative;
@@ -122,36 +79,34 @@ nav {
 }
 
 .field {
-    height: 420px;
-    background: rgba(87, 208, 127, 0.3);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    padding: 40px;
     border-radius: 8px;
-    position: relative;
-    box-shadow: inset 0 8px 30px rgba(0, 0, 0, 0.25);
+    justify-items: center;
+    align-items: center;
 }
 
 /* Game slots positioned */
 .game-slot {
-    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-.slot-a {
-    left: 6%;
-    top: 8%;
-}
-
-.slot-b {
-    left: 36%;
-    top: 10%;
-}
-
-.slot-c {
-    left: 66%;
-    top: 8%;
+.slot-a,
+.slot-b,
+.slot-c,
+.slot-d {
+    position: static;
+    left: auto;
+    top: auto;
 }
 
 .game-card {
-    width: 180px;
-    height: 120px;
+    width: 420px;
+    height: 300px;
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(6px);
@@ -160,51 +115,69 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.game-card:hover {
+    transform: scale(1.05);
+}
+
+.game-card:hover .game-thumb img {
+    opacity: 0.7;
 }
 
 .game-thumb {
-    width: 140px;
-    height: 80px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #6dd28a, #2b8b6a);
+    width: 360px;
+    height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.game-thumb img {
+    transition: opacity 0.3s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
 }
 
 .lock-large {
     position: absolute;
-    right: 10px;
-    bottom: -18px;
+    right: 20px;
+    bottom: -25px;
     background: #ffd36b;
-    padding: 10px;
+    padding: 14px;
     border-radius: 12px;
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
 }
 
 .lock-large svg {
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     fill: #4b2f06;
 }
 
 /* Responsive */
 @media (max-width: 900px) {
     .field {
-        height: 360px;
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 30px;
     }
     
-    .slot-a {
-        left: 6%;
-        top: 6%;
+    .game-card {
+        width: 240px;
+        height: 170px;
     }
     
-    .slot-b {
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-    
-    .slot-c {
-        left: 78%;
-        top: 6%;
+    .game-thumb {
+        width: 190px;
+        height: 120px;
     }
 }
 
@@ -224,52 +197,32 @@ nav {
     }
 }
 
-/* Main Content */
-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.content-box {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    border-radius: 16px;
-    padding: 40px;
-    margin: 30px auto;
-    max-width: 1200px;
-    width: 100%;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-}
-
 /* Footer */
 footer {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px);
-    padding: 30px 40px;
-    margin-top: auto;
+    color: white;
+    padding: 14px 24px;
+    text-align: center;
+    font-family: "Lilita One", sans-serif;
 }
 
 .footer-content {
     max-width: 1200px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
 }
 
 .footer-links {
     display: flex;
-    gap: 30px;
-    margin-bottom: 15px;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .footer-links a {
-    color: #cfe9d9;
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
-    font-weight: 600;
     font-size: 14px;
+    text-transform: uppercase;
     transition: color 0.3s;
 }
 
@@ -278,50 +231,50 @@ footer {
 }
 
 .footer-info {
-    text-align: center;
-    color: #b0d4c1;
-    font-size: 13px;
+    font-size: 14px;
+    margin-top: 15px;
+    color: rgba(255, 255, 255, 0.6);
 }
 
-.footer-info p {
-    margin: 5px 0;
+.footer-social {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
-.footer-info p:first-child {
-    font-weight: 700;
-    color: #cfe9d9;
+.social-icon {
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+    cursor: pointer;
+}
+
+.social-icon:hover {
+    background: rgba(255, 255, 255, 0.4);
 }
 
 @media (max-width: 768px) {
     nav {
-        padding: 12px 20px;
+        padding: 15px 20px;
     }
-    
+
     .nav-links {
         gap: 20px;
         flex-wrap: wrap;
+        justify-content: center;
     }
-    
+
     .nav-links a {
-        font-size: 12px;
+        font-size: 14px;
     }
-    
-    .nav-links .logo img {
-        height: 45px;
-    }
-    
-    footer {
-        padding: 20px;
-    }
-    
+
     .footer-links {
-        flex-direction: column;
-        gap: 15px;
-        align-items: center;
-    }
-    
-    .content-box {
-        padding: 25px;
-        margin: 20px;
+        gap: 20px;
     }
 }

@@ -12,48 +12,71 @@ main {
   justify-content: center;
   align-items: center;
   min-height: 60vh;
-  padding: 40px 20px;
-  /* Más padding superior e inferior */
+  padding: 10px 20px;
+  /* Reducir padding superior para menos espacio arriba */
   width: 100%;
 }
 
 .auth-box {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Efecto cristal: fondo semitransparente con desenfoque */
+  background: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  /* Borde sutil para separar del fondo */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  /* Aumentar altura con más padding vertical */
+  padding: 50px 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   margin: 0 auto;
 }
 
 /* El resto de tus estilos de login se mantienen igual */
 .toggle-container {
   display: flex;
-  margin-bottom: 20px;
-  border-radius: 5px;
+  margin-bottom: 25px;
+  border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .toggle-btn {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
   border: none;
-  background: #f8f9fa;
+  background: rgba(255, 255, 255, 0.1);
+  color: #000;
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 500;
   font-size: 14px;
+  border-radius: 0;
 }
 
-.toggle-btn.active {
-  background: #007bff;
-  color: white;
+/* Botón de inicio de sesión (primer botón - izquierda) */
+.toggle-btn:first-child.active {
+  background: rgba(255, 255, 255, 0.25);
+  color: #000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(0, 0, 0, 0.9);
+  /* Esquinas izquierdas redondeadas: superior izquierda e inferior izquierda */
+  border-radius: 8px 0 0 8px;
+}
+
+/* Botón de register (segundo botón - derecha) */
+.toggle-btn:last-child.active {
+  background: rgba(255, 255, 255, 0.25);
+  color: #000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(0, 0, 0, 0.9);
+  /* Esquinas derechas redondeadas: superior derecha e inferior derecha */
+  border-radius: 0 8px 8px 0;
 }
 
 .toggle-btn:not(.active):hover {
-  background: #e9ecef;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .form-container {
@@ -78,35 +101,45 @@ main {
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-weight: 500;
-  color: #333;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .form-group input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.35);
+  color: #fff;
+  border-radius: 8px;
   font-size: 14px;
   box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: #000;
+  border-width: 2px;
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15);
 }
 
 .submit-btn {
   width: 100%;
   padding: 12px;
-  background: #007bff;
+  background: #dc3545;
   color: white;
   border: none;
   border-radius: 5px;
@@ -117,11 +150,11 @@ main {
 }
 
 .submit-btn:hover {
-  background: #0056b3;
+  background: #9c50ff;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #333;
+  color: #000;
 }
