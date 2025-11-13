@@ -11,7 +11,7 @@
             <img src="{{ asset('img/albert.jpg') }}" alt="Albert Canovas">
             <h3>Albert Canovas</h3>
             <p>Desarrollador Frontend</p>
-            <p>Apasionada por el diseño y la innovación, lidera cada proyecto con una visión única que combina estética y funcionalidad.</p>
+            <p>Organizado y orientado a resultados, garantiza que cada proyecto se ejecute con precisión, tiempo y calidad.</p>
         </div>
     </div>
 
