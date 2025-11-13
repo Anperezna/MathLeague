@@ -133,8 +133,7 @@ h1 img {
 
 .game-area {
     position: relative;
-    background: linear-gradient(to bottom, rgba(17, 24, 39, 0.7), rgba(31, 41, 55, 0.7)), 
-                url('../img/fondo_mathbus.jpg');
+    background: url('../img/fondo_mathbus.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -174,8 +173,7 @@ h1 img {
 }
 
 .bus-body {
-    width: 120px;
-    height: 75px;
+    width: 250px;
     position: relative;
 }
 
