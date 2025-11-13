@@ -12,7 +12,7 @@ const game = {
     scoreSaved: false, // Nueva bandera para evitar guardar dos veces
     // Nuevas propiedades para controles suaves
     keysPressed: {},
-    busSpeed: 0.8, // Velocidad del bus (ajustable)
+    busSpeed: 1, // Velocidad del bus (ajustable)
 
     // Iniciar juego
     start() {
@@ -47,7 +47,7 @@ const game = {
         this.loadOperation();
         this.setupControls();
         this.startGameLoop();
-        this.startItemGenerator();
+        // this.startItemGenerator(); // Deshabilitado - sin pelotas cayendo
         
         console.log('✅ Juego iniciado completamente');
     },
@@ -99,7 +99,7 @@ const game = {
         document.addEventListener('keydown', (e) => {
             if (!this.started || this.over) return;
 
-            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
                 e.preventDefault(); // Evitar scroll de la página
                 this.keysPressed[e.key] = true;
             }
@@ -107,7 +107,7 @@ const game = {
 
         // Detectar cuando se suelta una tecla
         document.addEventListener('keyup', (e) => {
-            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
                 this.keysPressed[e.key] = false;
             }
         });
@@ -115,35 +115,35 @@ const game = {
 
     // Actualizar posición del bus basado en teclas presionadas
     updateBusPosition() {
-        if (this.keysPressed['ArrowLeft']) {
+        if (this.keysPressed['ArrowUp']) {
             this.busPosition -= this.busSpeed;
         }
-        if (this.keysPressed['ArrowRight']) {
+        if (this.keysPressed['ArrowDown']) {
             this.busPosition += this.busSpeed;
         }
 
-        // Limitar posición del bus
-        this.busPosition = Math.max(0, Math.min(90, this.busPosition));
+        // Limitar posición del bus (vertical: 0% arriba, 80% abajo)
+        this.busPosition = Math.max(0, Math.min(80, this.busPosition));
         
         const bus = document.getElementById('bus');
         if (bus) {
-            bus.style.left = `${this.busPosition}%`;
+            bus.style.top = `${this.busPosition}%`;
         }
     },
 
     // Mover el bus (método antiguo - ya no se usa directamente)
     moveBus(direction) {
-        this.busPosition = Math.max(0, Math.min(90, this.busPosition + direction));
+        this.busPosition = Math.max(0, Math.min(80, this.busPosition + direction));
         const bus = document.getElementById('bus');
-        bus.style.left = `${this.busPosition}%`;
+        bus.style.top = `${this.busPosition}%`;
     },
 
     // Iniciar el loop principal del juego
     startGameLoop() {
         this.gameLoop = setInterval(() => {
             this.updateBusPosition(); // Actualizar posición del bus continuamente
-            this.updateFallingItems();
-            this.checkCollisions();
+            // this.updateFallingItems(); // Deshabilitado - sin pelotas
+            // this.checkCollisions(); // Deshabilitado - sin pelotas
         }, 16); // ~60 FPS (1000ms / 60 ≈ 16ms)
     },
 
@@ -411,7 +411,7 @@ window.addEventListener('DOMContentLoaded', () => {
     
     // Posicionar el bus
     if (bus) {
-        bus.style.left = '50%';
+        bus.style.top = '50%';
     }
     
     console.log('✅ MathBus listo para jugar!');
