@@ -14,7 +14,7 @@
 
             <!-- Login Form -->
             <div class="form-container active" id="loginForm">
-                <form action="{{ route('login') }}" method="POST">
+                <form action="{{ route('login') }}" action="{{ route('login.submit') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="login-username"  style="color: black; font-family: Lilita One, sans-serif; font-size: 22px;">Username</label>

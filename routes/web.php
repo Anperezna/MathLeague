@@ -1,8 +1,10 @@
 <?php
 
 use App\Models\Juegos;
-use App\Http\Controllers\JuegosController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\JuegosController;
+use App\Http\Controllers\RegisterController;
 
 Route::get('/', function () {
     return view('index');
@@ -12,17 +14,15 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 
 Route::get('/index', function () {
     return view('index');
 })->name('index');
 
-Route::get('/register', function () {
-    return view('login'); // Redirige a la misma vista de login
-})->name('register');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
 
 Route::get('/learning', function () {
     return view('learning');
@@ -39,6 +39,7 @@ Route::get('/mathbus', function () {
 Route::get('/mathmatch', function () {
     return view('mathmatch');
 })->name('mathmatch');
+
 
 // Rutas API para el juego MathBus
 Route::prefix('api/game')->group(function () {
