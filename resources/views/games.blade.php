@@ -1,4 +1,4 @@
-@extends('plantilla.plantilla')
+@extends('layouts.app')
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('CSS/games.css') }}">

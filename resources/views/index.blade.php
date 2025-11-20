@@ -1,4 +1,4 @@
-@extends('plantilla.plantilla')
+@extends('layouts.app')
 
 @push('styles')
     <link rel="stylesheet" href="CSS/index.css">
